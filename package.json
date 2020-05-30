@@ -1,0 +1,12 @@
+{
+  "name": "staticool",
+  "bin": {
+    "staticool": "./dist/index.js"
+  },
+  "version": "1.0.0",
+  "description": "Static site generator",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Thiago Baptista"
+}
