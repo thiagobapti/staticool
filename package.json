@@ -4,9 +4,12 @@
     "staticool": "./dist/index.js"
   },
   "version": "1.0.0",
-  "description": "Static site generator",
+  "description": "A quarantine-made full featured(or not) static site generator",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
-  "author": "Thiago Baptista"
+  "author": "Thiago Baptista",
+  "dependencies": {
+    "colors": "^1.4.0"
+  }
 }
