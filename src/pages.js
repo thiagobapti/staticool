@@ -6,10 +6,23 @@ import config, { defaultConfig, localConfig } from "./config";
 
 const loadJSONPageFile = (pageFilePath) => {
   console.log("loadJSONPageFile", pageFilePath);
+  const pageFileBuffer = fs.readFileSync(pageFilePath);
+  if (!pageFileBuffer.toString()) {
+    return false;
+  } else {
+    try {
+      console.log(`Page file ${pageFilePath} loaded successfully`.green);
+      return true;
+    } catch (e) {
+      console.log(`Bad page file ${pageFilePath}`.red);
+      return false;
+    }
+  }
 };
 
 const loadJSPageFile = (pageFilePath) => {
   console.log("loadJSPageFile", pageFilePath);
+  return false;
 };
 
 const loadPageFile = (pageFilePath) => {
@@ -17,21 +30,23 @@ const loadPageFile = (pageFilePath) => {
   if (settings.allowedPageFileExtensions.includes(pageFileExtension)) {
     switch (pageFileExtension) {
       case ".json":
-        loadJSONPageFile(pageFilePath);
+        return loadJSONPageFile(pageFilePath);
         break;
       case ".js":
-        loadJSPageFile(pageFilePath);
+        return loadJSPageFile(pageFilePath);
         break;
       default:
         console.log(
           `Skipping unknown page file extension ${pageFileExtension}`.yellow
         );
+        return false;
         break;
     }
   } else {
     console.log(
       `Skipping unknown page file extension ${pageFileExtension}.`.yellow
     );
+    return false;
   }
 };
 
@@ -57,9 +72,16 @@ const loadPages = (pages) => {
       loadPageFile(`${__dirname}/${settings.defaultPageFilePath}`);
     }
   } else {
-    existingPageFilePaths.forEach((pageFilePath) => {
-      loadPageFile(`${process.cwd()}/${pageFilePath}`);
-    });
+    const validpageFileExtensions = existingPageFilePaths.filter(
+      (pageFilePath) => {
+        return loadPageFile(`${process.cwd()}/${pageFilePath}`);
+      }
+    );
+
+    if (!validpageFileExtensions.length) {
+      console.log("No valid page files".red);
+      process.exit();
+    }
   }
 };
 
