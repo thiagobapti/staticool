@@ -1,36 +1,44 @@
+//TODO Rewrite the config module as Singleton
 import fs from "fs";
+import colors from "colors";
 import settings from "./settings";
 
-export default (() => {
-  console.log("Staticool".bgBlue);
-  let defaultConfig;
+const defaultConfig = (() => {
   try {
-    defaultConfig = JSON.parse(
-      fs.readFileSync(`${__dirname}/${settings.configFileName}`)
+    return JSON.parse(
+      fs.readFileSync(`${__dirname}/${settings.defaultConfigFilePath}`)
     );
   } catch (e) {
     console.log("Bad default config file".red);
     throw e;
   }
-  const localConfigFilePath = `${process.cwd()}/${settings.configFileName}`;
+})();
+
+const localConfig = (() => {
+  console.log("Staticool".bgBlue);
+  const localConfigFilePath = `${process.cwd()}/${
+    settings.defaultConfigFilePath
+  }`;
 
   if (fs.existsSync(localConfigFilePath)) {
     const localConfigBuffer = fs.readFileSync(localConfigFilePath);
     if (!localConfigBuffer.toString()) {
-      return defaultConfig;
+      return null;
     } else {
       try {
-        return {
-          ...defaultConfig,
-          ...JSON.parse(localConfigBuffer),
-          _custom: true,
-        };
+        return JSON.parse(localConfigBuffer);
       } catch (e) {
-        console.log("Bad config file".red);
+        console.log("Bad local config file".red);
         throw e;
       }
     }
   } else {
-    return defaultConfig;
+    return null;
   }
 })();
+
+const config = (() => {
+  return localConfig ? { ...defaultConfig, ...localConfig } : defaultConfig;
+})();
+
+export { config as default, defaultConfig, localConfig };

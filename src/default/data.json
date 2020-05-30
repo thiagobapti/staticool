@@ -1,0 +1,15 @@
+{
+  "pages": [
+    {
+      "slug": "/",
+      "layout": "default",
+      "title": "Index",
+      "modules": [
+        {
+          "id": "header",
+          "brandText": "Hello World!"
+        }
+      ]
+    }
+  ]
+}

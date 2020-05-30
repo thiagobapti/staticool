@@ -1,6 +1,6 @@
 {
-  "dataFiles": [
-    "src/data.json",
-    "src/data.js"
+  "pageFiles": [
+    "src/pages.json",
+    "src/pages.js"
   ]
 }

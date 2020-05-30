@@ -1,3 +1,4 @@
 export default {
-  configFileName: ".staticool",
+  defaultConfigFilePath: ".staticool",
+  defaultPageFilePath: "default/data.json",
 };
