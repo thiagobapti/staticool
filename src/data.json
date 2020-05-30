@@ -1,0 +1,54 @@
+{
+  "global": {
+    "projectName": "Project Name"
+  },
+  "shared": [
+    {
+      "moduleId": "header",
+      "name": "default-header",
+      "data": {
+        "brandText": "Default Brand Text"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "slug": "/",
+      "layout": "default",
+      "title": "Index Page",
+      "modules": [
+        {
+          "id": "header",
+          "brandText": "Hello World!"
+        }
+      ]
+    },
+    {
+      "slug": "about",
+      "layout": "default",
+      "title": "About Page",
+      "modules": [
+        {
+          "id": "header",
+          "__shared": "default-header"
+        }
+      ]
+    },
+    {
+      "slug": "states",
+      "pages": [
+        {
+          "slug": "sp",
+          "layout": "states",
+          "title": "States - SP",
+          "modules": [
+            {
+              "id": "header",
+              "brandText": "Hello World SP!"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
