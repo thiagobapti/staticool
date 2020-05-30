@@ -1,10 +1,38 @@
 import fs from "fs";
+import path from "path";
 import colors from "colors";
 import settings from "./settings";
 import config, { defaultConfig, localConfig } from "./config";
 
+const loadJSONPageFile = (pageFilePath) => {
+  console.log("loadJSONPageFile", pageFilePath);
+};
+
+const loadJSPageFile = (pageFilePath) => {
+  console.log("loadJSPageFile", pageFilePath);
+};
+
 const loadPageFile = (pageFilePath) => {
-  console.log("loadPageFile", pageFilePath);
+  const pageFileExtension = path.extname(pageFilePath);
+  if (settings.allowedPageFileExtensions.includes(pageFileExtension)) {
+    switch (pageFileExtension) {
+      case ".json":
+        loadJSONPageFile(pageFilePath);
+        break;
+      case ".js":
+        loadJSPageFile(pageFilePath);
+        break;
+      default:
+        console.log(
+          `Skipping unknown page file extension ${pageFileExtension}`.yellow
+        );
+        break;
+    }
+  } else {
+    console.log(
+      `Skipping unknown page file extension ${pageFileExtension}.`.yellow
+    );
+  }
 };
 
 const loadPages = (pages) => {
