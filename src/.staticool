@@ -1,0 +1,6 @@
+{
+  "dataFiles": [
+    "src/data.json",
+    "src/data.js"
+  ]
+}

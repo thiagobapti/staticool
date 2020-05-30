@@ -6,10 +6,19 @@
   "version": "1.0.0",
   "description": "A quarantine-made full featured(or not) static site generator",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "dev": "npm run build && onchange 'src/**/' -- npm run build",
+    "build": "babel src --out-dir dist --copy-files --include-dotfiles"
+  },
   "keywords": [],
   "author": "Thiago Baptista",
   "dependencies": {
-    "colors": "^1.4.0"
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.10.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
+    "@babel/plugin-transform-destructuring": "^7.10.1",
+    "babel-preset-env": "^1.7.0",
+    "colors": "^1.4.0",
+    "onchange": "^7.0.2"
   }
 }
