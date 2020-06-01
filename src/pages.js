@@ -3,6 +3,7 @@ import path from "path";
 import colors from "colors";
 import settings from "./settings";
 import config, { defaultConfig, localConfig } from "./config";
+import { renderPages } from "./render";
 
 const loadJSONPageFile = (pageFilePath) => {
   console.log("loadJSONPageFile", pageFilePath);
@@ -12,6 +13,7 @@ const loadJSONPageFile = (pageFilePath) => {
   } else {
     try {
       console.log(`Page file ${pageFilePath} loaded successfully`.green);
+      renderPages(pageFileBuffer, pageFilePath);
       return true;
     } catch (e) {
       console.log(`Bad page file ${pageFilePath}`.red);
@@ -21,8 +23,7 @@ const loadJSONPageFile = (pageFilePath) => {
 };
 
 const loadJSPageFile = (pageFilePath) => {
-  console.log("loadJSPageFile", pageFilePath);
-  return false;
+  // TODO
 };
 
 const loadPageFile = (pageFilePath) => {
@@ -31,20 +32,17 @@ const loadPageFile = (pageFilePath) => {
     switch (pageFileExtension) {
       case ".json":
         return loadJSONPageFile(pageFilePath);
-        break;
       case ".js":
         return loadJSPageFile(pageFilePath);
-        break;
       default:
         console.log(
           `Skipping unknown page file extension ${pageFileExtension}`.yellow
         );
         return false;
-        break;
     }
   } else {
     console.log(
-      `Skipping unknown page file extension ${pageFileExtension}.`.yellow
+      `Skipping unknown page file extension ${pageFileExtension}`.yellow
     );
     return false;
   }
