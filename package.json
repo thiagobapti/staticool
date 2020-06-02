@@ -18,8 +18,10 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
     "@babel/plugin-transform-destructuring": "^7.10.1",
     "babel-preset-env": "^1.7.0",
+    "browser-sync": "^2.26.7",
     "colors": "^1.4.0",
     "fs-extra": "^9.0.0",
+    "node-watch": "^0.6.4",
     "onchange": "^7.0.2"
   }
 }

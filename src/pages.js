@@ -1,9 +1,10 @@
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 import colors from "colors";
 import settings from "./settings";
 import config, { defaultConfig, localConfig } from "./config";
 import { renderPages } from "./render";
+import browserSync from "./browser-sync";
 
 const loadJSONPageFile = (pageFilePath) => {
   console.log("loadJSONPageFile", pageFilePath);
@@ -49,6 +50,8 @@ const loadPageFile = (pageFilePath) => {
 };
 
 const loadPages = (pages) => {
+  console.log("Load pages");
+  fs.emptyDirSync(`${process.cwd()}/${settings.buildDir}`);
   if (!Array.isArray(config.pageFiles) || !config.pageFiles.length) {
     console.log("No page files provided".red);
     process.exit();
@@ -81,6 +84,8 @@ const loadPages = (pages) => {
       process.exit();
     }
   }
+
+  // browserSync.reload();
 };
 
 export { loadPages };

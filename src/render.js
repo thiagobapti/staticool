@@ -3,6 +3,7 @@ import path from "path";
 import colors from "colors";
 import settings from "./settings";
 import config, { defaultConfig, localConfig } from "./config";
+import { loadPages } from "./pages";
 
 const renderPage = (pageJSON, parentSlug) => {
   if (pageJSON.slug.substr(0, 1) !== "/") pageJSON.slug = "/" + pageJSON.slug;
