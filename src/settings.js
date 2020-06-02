@@ -2,4 +2,6 @@ export default {
   defaultConfigFilePath: ".staticool",
   defaultPageFilePath: "default/data.json",
   allowedPageFileExtensions: [".json"],
+  buildDir: "dist",
+  htmlFileName: "index.html",
 };

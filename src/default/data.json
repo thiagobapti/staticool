@@ -1,15 +1,31 @@
-{
-  "pages": [
-    {
-      "slug": "/",
-      "layout": "default",
-      "title": "Index",
-      "modules": [
-        {
-          "id": "header",
-          "brandText": "Hello World!"
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "slug": "/",
+    "layout": "default",
+    "title": "Index",
+    "modules": [],
+    "pages": []
+  },
+  {
+    "slug": "/about",
+    "layout": "default",
+    "title": "About"
+  },
+  {
+    "slug": "states",
+    "pages": [
+      {
+        "slug": "/sp",
+        "layout": "default",
+        "title": "SP",
+        "pages": [
+          {
+            "slug": "/osasco",
+            "layout": "default",
+            "title": "Osasco"
+          }
+        ]
+      }
+    ]
+  }
+]

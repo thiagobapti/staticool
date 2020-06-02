@@ -1,15 +1,45 @@
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 import colors from "colors";
 import settings from "./settings";
 import config, { defaultConfig, localConfig } from "./config";
 
+const renderPage = (pageJSON, parentSlug) => {
+  if (pageJSON.slug.substr(0, 1) !== "/") pageJSON.slug = "/" + pageJSON.slug;
+  let pagePath =
+    pageJSON.slug === "/"
+      ? `${process.cwd()}/${settings.buildDir}`
+      : `${process.cwd()}/${settings.buildDir}${parentSlug || ""}${
+          pageJSON.slug
+        }`;
+  fs.ensureDirSync(pagePath);
+
+  if (pageJSON.layout) {
+    console.log(`Rendering ${parentSlug || ""}${pageJSON.slug}`);
+    fs.outputFileSync(
+      `${pagePath}/${settings.htmlFileName}`,
+      `<html><head><title>${pageJSON.title}</title></head><body></body></html>`
+    );
+  }
+
+  if (pageJSON.pages && Array.isArray(pageJSON.pages)) {
+    pageJSON.pages.forEach((nestedPageJSON) => {
+      renderPage(
+        nestedPageJSON,
+        parentSlug ? parentSlug + pageJSON.slug : pageJSON.slug
+      );
+    });
+  }
+};
+
 const renderPages = (pagesFileBuffer, pagesFilePath) => {
-  let pagesJSON;
   try {
-    pagesJSON = JSON.parse(pagesFileBuffer);
+    const pagesJSON = JSON.parse(pagesFileBuffer);
+    pagesJSON.forEach((pageJSON) => {
+      renderPage(pageJSON);
+    });
   } catch (e) {
-    console.log(`Error on parsing the page file ${pagesFilePath}`.red);
+    console.log(`Error on parsing the pagr file ${pagesFilePath}`.red, e);
   }
 };
 

@@ -19,6 +19,7 @@
     "@babel/plugin-transform-destructuring": "^7.10.1",
     "babel-preset-env": "^1.7.0",
     "colors": "^1.4.0",
+    "fs-extra": "^9.0.0",
     "onchange": "^7.0.2"
   }
 }
