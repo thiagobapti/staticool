@@ -9,8 +9,8 @@ const renderPage = (pageJSON, parentSlug) => {
   if (pageJSON.slug.substr(0, 1) !== "/") pageJSON.slug = "/" + pageJSON.slug;
   let pagePath =
     pageJSON.slug === "/"
-      ? `${process.cwd()}/${settings.buildDir}`
-      : `${process.cwd()}/${settings.buildDir}${parentSlug || ""}${
+      ? `${process.cwd()}/${config.buildDir}`
+      : `${process.cwd()}/${config.buildDir}${parentSlug || ""}${
           pageJSON.slug
         }`;
   fs.ensureDirSync(pagePath);
@@ -18,7 +18,7 @@ const renderPage = (pageJSON, parentSlug) => {
   if (pageJSON.layout) {
     console.log(`Rendering ${parentSlug || ""}${pageJSON.slug}`);
     fs.outputFileSync(
-      `${pagePath}/${settings.htmlFileName}`,
+      `${pagePath}/${config.htmlFileName}`,
       `<html><head><title>${pageJSON.title}</title></head><body></body></html>`
     );
   }

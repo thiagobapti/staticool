@@ -1,13 +1,34 @@
-import watch from "node-watch";
-import { loadPages } from "./pages";
+import chokidar from "chokidar";
+import regexParser from "regex-parser";
+import config from "./config";
 
-export default () => {
-  watch(
-    process.cwd(),
-    { recursive: true, filter: (f) => !/dist/.test(f) },
-    (evt, name) => {
-      console.log("%s changed.", name, evt);
-      loadPages();
+const watcher =  {
+  instance: null,
+  get() {
+    return !watcher.instance ?  watcher.init() : this.instance;
+  },
+  validateWatcherIgnore(basePath, watcherIgnore) {
+    try {
+      return new RegExp(regexParser(
+        basePath + watcherIgnore
+        ));
+    } catch(e) {
+      console.log('Invalid watcherIgnore'.red, watcherIgnore)
+      throw e;
     }
-  );
+  },
+  init() {
+    const ignoreRegex = watcher.validateWatcherIgnore(process.cwd(), config.watcherIgnore);
+
+    return watcher.instance = chokidar
+      .watch(process.cwd(), {
+        ignoreInitial: true,
+        ignored: ignoreRegex,
+      })
+      .on("all", (event, path) => {
+        console.log(event, path);
+      });
+    },
 };
+
+export default watcher;

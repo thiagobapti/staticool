@@ -2,5 +2,9 @@
   "pageFiles": [
     "src/pages.json",
     "src/pages.js"
-  ]
+  ],
+  "buildDir": "dist",
+  "htmlFileName": "index.html",
+  "staticDir": "static",
+  "watcherIgnore": "(\\\\|\/)(node_modules|dist)/"
 }

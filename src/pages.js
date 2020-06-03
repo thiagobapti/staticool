@@ -4,7 +4,8 @@ import colors from "colors";
 import settings from "./settings";
 import config, { defaultConfig, localConfig } from "./config";
 import { renderPages } from "./render";
-import browserSync from "./browser-sync";
+import watcher from "./watch";
+// import browserSync from "./browser-sync";
 
 const loadJSONPageFile = (pageFilePath) => {
   console.log("loadJSONPageFile", pageFilePath);
@@ -85,7 +86,10 @@ const loadPages = (pages) => {
     }
   }
 
+  watcher.init();
+  watcher.get();
   // browserSync.reload();
+  
 };
 
 export { loadPages };
