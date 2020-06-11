@@ -8,7 +8,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run build && onchange 'src/**/' -- npm run build",
-    "build": "babel src --out-dir dist --copy-files --include-dotfiles"
+    "build": "babel src --out-dir dist --copy-files --include-dotfiles",
+    "test": "mocha"
   },
   "keywords": [],
   "author": "Thiago Baptista",
@@ -19,9 +20,12 @@
     "@babel/plugin-transform-destructuring": "^7.10.1",
     "babel-preset-env": "^1.7.0",
     "browser-sync": "^2.26.7",
+    "chai": "^4.2.0",
     "chokidar": "^3.4.0",
     "colors": "^1.4.0",
     "fs-extra": "^9.0.0",
+    "mocha": "^8.0.1",
+    "node-notifier": "^7.0.1",
     "onchange": "^7.0.2",
     "regex-parser": "^2.2.10"
   }
