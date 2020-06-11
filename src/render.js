@@ -40,7 +40,7 @@ const renderPages = (pagesFileBuffer, pagesFilePath) => {
       renderPage(pageJSON);
     });
   } catch (e) {
-    console.log(`Error on parsing the pagr file ${pagesFilePath}`.red, e);
+    console.log(`Error on parsing the page file ${pagesFilePath}`.red, e);
   }
 };
 

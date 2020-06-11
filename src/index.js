@@ -11,7 +11,7 @@ console.log("config", config);
 console.log("defaultConfig", defaultConfig);
 console.log("localConfig", localConfig);
 
-if (process.argv.includes("-d") || process.argv.includes("dev")) {
+if (process.argv.includes("--d") || process.argv.includes("dev")) {
   localConfig
     ? console.log("Using custom config file".gray)
     : console.log("Using default config file".gray);

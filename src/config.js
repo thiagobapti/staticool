@@ -2,6 +2,8 @@
 import fs from "fs";
 import colors from "colors";
 import settings from "./settings";
+import constants from "./constants";
+import { logger } from "./logger"
 
 const defaultConfig = (() => {
   try {
@@ -9,7 +11,7 @@ const defaultConfig = (() => {
       fs.readFileSync(`${__dirname}/${settings.defaultConfigFilePath}`)
     );
   } catch (e) {
-    console.log("Bad default config file".red);
+    logger.error("🥵 Bad default config file".red, `(See more at ${constants.DEFAULT_CONFIG_FILE_DOC_URL})`.yellow);
     throw e;
   }
 })();
