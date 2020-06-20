@@ -1,7 +1,7 @@
 import fs from "fs-extra";
 import path from "path";
 import colors from "colors";
-import settings from "./settings";
+import { settings } from "./settings";
 import config, { defaultConfig, localConfig } from "./config";
 import { loadPages } from "./pages";
 

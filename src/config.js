@@ -1,8 +1,7 @@
 //TODO Rewrite the config module as Singleton
 import fs from "fs";
-import colors from "colors";
-import settings from "./settings";
-import constants from "./constants";
+import { settings } from "./settings";
+import { DOC_URLS } from "./constants/doc-urls";
 import { logger } from "./logger"
 
 const defaultConfig = (() => {
@@ -11,13 +10,12 @@ const defaultConfig = (() => {
       fs.readFileSync(`${__dirname}/${settings.defaultConfigFilePath}`)
     );
   } catch (e) {
-    logger.error("🥵 Bad default config file".red, `(See more at ${constants.DEFAULT_CONFIG_FILE_DOC_URL})`.yellow);
+    logger.error("Bad default config file", DOC_URLS.DEFAULT_CONFIG_FILE);
     throw e;
   }
 })();
 
 const localConfig = (() => {
-  console.log("Staticool".bgBlue);
   const localConfigFilePath = `${process.cwd()}/${
     settings.defaultConfigFilePath
   }`;
@@ -44,3 +42,4 @@ const config = (() => {
 })();
 
 export { config as default, defaultConfig, localConfig };
+  

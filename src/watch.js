@@ -3,10 +3,6 @@ import regexParser from "regex-parser";
 import config from "./config";
 
 const watcher =  {
-  instance: null,
-  get() {
-    return !watcher.instance ?  watcher.init() : this.instance;
-  },
   validateWatcherIgnore(basePath, watcherIgnore) {
     try {
       return new RegExp(regexParser(
@@ -18,6 +14,8 @@ const watcher =  {
     }
   },
   init() {
+    if(watcher.instance) return watcher.instance;
+
     const ignoreRegex = watcher.validateWatcherIgnore(process.cwd(), config.watcherIgnore);
 
     return watcher.instance = chokidar
@@ -31,4 +29,4 @@ const watcher =  {
     },
 };
 
-export default watcher;
+export { watcher };

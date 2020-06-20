@@ -1,10 +1,10 @@
 import fs from "fs-extra";
 import path from "path";
 import colors from "colors";
-import settings from "./settings";
+import { settings } from "./settings";
 import config, { defaultConfig, localConfig } from "./config";
 import { renderPages } from "./render";
-import watcher from "./watch";
+import { watcher } from "./watch";
 // import browserSync from "./browser-sync";
 
 const loadJSONPageFile = (pageFilePath) => {
@@ -87,7 +87,7 @@ const loadPages = (pages) => {
   }
 
   watcher.init();
-  watcher.get();
+
   // browserSync.reload();
   
 };
