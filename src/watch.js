@@ -1,32 +1,34 @@
-import chokidar from "chokidar";
-import regexParser from "regex-parser";
-import config from "./config";
+import chokidar from 'chokidar';
+import regexParser from 'regex-parser';
+import config from './config';
+import logger from './logger';
 
-const watcher =  {
-  validateWatcherIgnore(basePath, watcherIgnore) {
+let instance;
+
+const watcher = () => {
+  const validateWatcherIgnore = (basePath, watcherIgnore) => {
     try {
-      return new RegExp(regexParser(
-        basePath + watcherIgnore
-        ));
-    } catch(e) {
-      console.log('Invalid watcherIgnore'.red, watcherIgnore)
+      return new RegExp(regexParser(basePath + watcherIgnore));
+    } catch (e) {
+      logger.error('Invalid watcherIgnore'.red, watcherIgnore);
       throw e;
     }
-  },
-  init() {
-    if(watcher.instance) return watcher.instance;
+  };
 
-    const ignoreRegex = watcher.validateWatcherIgnore(process.cwd(), config.watcherIgnore);
+  if (instance) return instance;
 
-    return watcher.instance = chokidar
-      .watch(process.cwd(), {
-        ignoreInitial: true,
-        ignored: ignoreRegex,
-      })
-      .on("all", (event, path) => {
-        console.log(event, path);
-      });
-    },
+  const ignoreRegex = validateWatcherIgnore(process.cwd(), config.watcherIgnore);
+
+  instance = chokidar
+    .watch(process.cwd(), {
+      ignoreInitial: true,
+      ignored: ignoreRegex,
+    })
+    .on('all', (event, path) => {
+      logger.log(event, path);
+    });
+
+  return instance;
 };
 
-export { watcher };
+export default watcher;
