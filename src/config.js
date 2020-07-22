@@ -6,7 +6,9 @@ import logger from './logger';
 
 const defaultConfig = (() => {
   try {
-    return JSON.parse(fs.readFileSync(`${__dirname}/${settings.defaultConfigFilePath}`));
+    return JSON.parse(
+      fs.readFileSync(`${__dirname}/${settings.defaultConfigFilePath}`),
+    );
   } catch (e) {
     logger.error('Bad default config file', DOC_URLS.DEFAULT_CONFIG_FILE);
     throw e;
@@ -14,7 +16,9 @@ const defaultConfig = (() => {
 })();
 
 const localConfig = (() => {
-  const localConfigFilePath = `${process.cwd()}/${settings.defaultConfigFilePath}`;
+  const localConfigFilePath = `${process.cwd()}/${
+    settings.defaultConfigFilePath
+  }`;
 
   if (fs.existsSync(localConfigFilePath)) {
     const localConfigBuffer = fs.readFileSync(localConfigFilePath);
@@ -32,6 +36,8 @@ const localConfig = (() => {
   }
 })();
 
-const config = localConfig ? { ...defaultConfig, ...localConfig } : defaultConfig;
+const config = localConfig
+  ? { ...defaultConfig, ...localConfig }
+  : defaultConfig;
 
 export { config as default, defaultConfig, localConfig };

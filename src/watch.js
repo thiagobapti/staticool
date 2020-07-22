@@ -17,7 +17,10 @@ const watcher = () => {
 
   if (instance) return instance;
 
-  const ignoreRegex = validateWatcherIgnore(process.cwd(), config.watcherIgnore);
+  const ignoreRegex = validateWatcherIgnore(
+    process.cwd(),
+    config.watcherIgnore,
+  );
 
   instance = chokidar
     .watch(process.cwd(), {

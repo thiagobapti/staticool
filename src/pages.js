@@ -69,14 +69,17 @@ const loadPages = (pages) => {
 
   if (!existingPageFilePaths.length) {
     if (localConfig && localConfig.pageFiles) {
-      logger.error('Page files not found'.red, colors.red(localConfig.pageFiles));
+      logger.error(
+        'Page files not found'.red,
+        colors.red(localConfig.pageFiles),
+      );
       process.exit();
     } else {
       loadPageFile(`${__dirname}/${settings.defaultPageFilePath}`);
     }
   } else {
-    const validpageFileExtensions = existingPageFilePaths.filter((pageFilePath) =>
-      loadPageFile(`${process.cwd()}/${pageFilePath}`),
+    const validpageFileExtensions = existingPageFilePaths.filter(
+      (pageFilePath) => loadPageFile(`${process.cwd()}/${pageFilePath}`),
     );
 
     if (!validpageFileExtensions.length) {

@@ -8,7 +8,9 @@ const renderPage = (pageJSON, parentSlug) => {
   const pagePath =
     pageJSON.slug === '/'
       ? `${process.cwd()}/${config.buildDir}`
-      : `${process.cwd()}/${config.buildDir}${parentSlug || ''}${pageJSON.slug}`;
+      : `${process.cwd()}/${config.buildDir}${parentSlug || ''}${
+          pageJSON.slug
+        }`;
   fs.ensureDirSync(pagePath);
 
   if (pageJSON.layout) {
@@ -21,7 +23,10 @@ const renderPage = (pageJSON, parentSlug) => {
 
   if (pageJSON.pages && Array.isArray(pageJSON.pages)) {
     pageJSON.pages.forEach((nestedPageJSON) => {
-      renderPage(nestedPageJSON, parentSlug ? parentSlug + pageJSON.slug : pageJSON.slug);
+      renderPage(
+        nestedPageJSON,
+        parentSlug ? parentSlug + pageJSON.slug : pageJSON.slug,
+      );
     });
   }
 };
